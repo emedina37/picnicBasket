@@ -336,6 +336,13 @@ function onStart () {
         ................................
         `
     ]
+    foodText = [
+    "hamburger",
+    "lemon",
+    "pizza",
+    "taco",
+    "chicken"
+    ]
     for (let index = 0; index <= 5; index++) {
         picnicFood.setImage(fallingFood[index])
         pause(500)
@@ -369,6 +376,7 @@ function foodGuess () {
     guessEvaluator()
     game.splash(score)
 }
+let foodText: string[] = []
 let fallingFood: Image[] = []
 let picnicFood: Sprite = null
 let guess5 = ""
