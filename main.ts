@@ -1,6 +1,3 @@
-function allCode () {
-    onStart()
-}
 function guessEvaluator (guess: string) {
     for (let index = 0; index <= 4; index++) {
         if (guess.charAt(0) == foodText[index]) {
@@ -368,4 +365,4 @@ let fallingFood: Image[] = []
 let picnicFood: Sprite = null
 let score = 0
 let foodText: string[] = []
-allCode()
+onStart()
