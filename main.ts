@@ -1,10 +1,20 @@
 function guessEvaluator (guess: string) {
+    correctGuessStatus = 0
     for (let index = 0; index <= 4; index++) {
         if (guess.charAt(0) == foodText[index]) {
-            score += 1
-            game.splash("You got it Right!", "Score: " + score)
+            correctGuessStatus = 1
             break;
         }
+    }
+    if (correctGuessStatus == 1) {
+        score += 1
+        game.splash("You got it Right!", "Score: " + score + (" Strikes: " + strikes))
+    } else {
+        strikes += 1
+        game.splash("Wrong!", "Score: " + score + (" Strikes:" + strikes))
+    }
+    if (strikes == 3) {
+        game.over(false, effects.melt)
     }
 }
 function onStart () {
@@ -331,6 +341,7 @@ function onStart () {
     "c"
     ]
     iterationNumber = 0
+    strikes = 0
     for (let index = 0; index <= 4; index++) {
         picnicFood.setImage(fallingFood[index])
         pause(500)
@@ -358,11 +369,16 @@ function onStart () {
     guessEvaluator(game.askForString("What was the third food?", 9))
     guessEvaluator(game.askForString("What was the fourth food?", 9))
     guessEvaluator(game.askForString("What was the fifth food?", 9))
+    if (score == 5) {
+        game.over(true, effects.confetti)
+    }
     game.splash("Nice Job!", "Score: " + score)
 }
 let iterationNumber = 0
 let fallingFood: Image[] = []
 let picnicFood: Sprite = null
+let strikes = 0
 let score = 0
 let foodText: string[] = []
+let correctGuessStatus = 0
 onStart()
