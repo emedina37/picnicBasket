@@ -1,27 +1,17 @@
 function allCode () {
     onStart()
-    guessEvaluator()
-    foodGuess()
 }
-function guessEvaluator () {
-    if (guess1.charAt(0) == "H" || guess1.charAt(0) == "h") {
-        score += 1
-    }
-    if (guess2.charAt(0) == "L" || guess2.charAt(0) == "l") {
-        score += 1
-    }
-    if (guess3.charAt(0) == "P" || guess3.charAt(0) == "p") {
-        score += 1
-    }
-    if (guess4.charAt(0) == "T" || guess4.charAt(0) == "t") {
-        score += 1
-    }
-    if (guess5.charAt(0) == "C" || guess5.charAt(0) == "c") {
-        score += 1
+function guessEvaluator (guess: string) {
+    for (let index = 0; index <= 4; index++) {
+        if (guess.charAt(0) == foodText[index]) {
+            score += 1
+            game.splash("You got it Right!", "Score: " + score)
+            break;
+        }
     }
 }
 function onStart () {
-    game.splash("Remember the Food")
+    game.splash("Memorize the Foods")
     scene.setBackgroundImage(img`
         2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
         2222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111222221111122222111112222211111
@@ -337,13 +327,14 @@ function onStart () {
         `
     ]
     foodText = [
-    "hamburger",
-    "lemon",
-    "pizza",
-    "taco",
-    "chicken"
+    "h",
+    "l",
+    "p",
+    "t",
+    "c"
     ]
-    for (let index = 0; index <= 5; index++) {
+    iterationNumber = 0
+    for (let index = 0; index <= 4; index++) {
         picnicFood.setImage(fallingFood[index])
         pause(500)
     }
@@ -365,24 +356,16 @@ function onStart () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+    guessEvaluator(game.askForString("What was the first food?", 9))
+    guessEvaluator(game.askForString("What was the second food?", 9))
+    guessEvaluator(game.askForString("What was the third food?", 9))
+    guessEvaluator(game.askForString("What was the fourth food?", 9))
+    guessEvaluator(game.askForString("What was the fifth food?", 9))
+    game.splash("Nice Job!", "Score: " + score)
 }
-function foodGuess () {
-    guess1 = game.askForString("What was the first food?", 9)
-    guess2 = game.askForString("What was the second food?", 9)
-    guess3 = game.askForString("What was the third food?", 9)
-    guess4 = game.askForString("What was the fourth food?", 9)
-    guess5 = game.askForString("What was the fifth food?", 9)
-    score = 0
-    guessEvaluator()
-    game.splash(score)
-}
-let foodText: string[] = []
+let iterationNumber = 0
 let fallingFood: Image[] = []
 let picnicFood: Sprite = null
-let guess5 = ""
-let guess4 = ""
-let guess3 = ""
-let guess2 = ""
 let score = 0
-let guess1 = ""
+let foodText: string[] = []
 allCode()
